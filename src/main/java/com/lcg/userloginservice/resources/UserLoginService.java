@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserLoginService {
 
 	@RequestMapping("/{userEmail}/{userPass}")
-	public boolean authenticateUser(@PathVariable("userEmail") String userEmail,@PathVariable("userPass") String userPass){
+	public String authenticateUser(@PathVariable("userEmail") String userEmail,@PathVariable("userPass") String userPass){
 		
-		boolean isValidUser = false;
+		//boolean isValidUser = false;
+		String roleid = "0";
 		//System.out.println(userEmail + " userPass" +userPass+" :::::Authenticate user service");
 		
 		//Connect to DB and Query
@@ -33,8 +34,8 @@ public class UserLoginService {
 	                Statement statement = connection.createStatement();) {
 
 	            // Create and execute a SELECT SQL statement.
-	            //String selectSql = "SELECT * from dbo.Users where Email='" +userEmail+"'";
-	        	String selectSql = "SELECT * from dbo.Users where Email='JLevis@TestUniversity.com'";
+	            String selectSql = "SELECT * from dbo.Users where Email='" +userEmail+"'";
+	        	//String selectSql = "SELECT * from dbo.Users where Email='JLevis@TestUniversity.com'";
 	            resultSet = statement.executeQuery(selectSql);
 	            //System.out.println(resultSet.getString(2) + " " + resultSet.getString(3));
 
@@ -42,18 +43,19 @@ public class UserLoginService {
 	            while (resultSet.next()) {
 	                System.out.println(userPass+"  "+resultSet.getString(5));
 	                if(resultSet.getString(5).equals(userPass)){
-	                	isValidUser=true;
+	                	roleid=resultSet.getString(6);
+	                	//isValidUser=true;
 	                	 break;
 	    	        }
-	                }
-	               
+	                }	               
 	            }
 	            
 	        catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 		
-		return isValidUser;
+		//return isValidUser;
+	        return roleid;
 	}
 
 }

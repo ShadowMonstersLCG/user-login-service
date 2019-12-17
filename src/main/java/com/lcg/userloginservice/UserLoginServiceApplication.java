@@ -2,9 +2,10 @@ package com.lcg.userloginservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class UserLoginServiceApplication {
+public class UserLoginServiceApplication  extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(UserLoginServiceApplication.class, args);
